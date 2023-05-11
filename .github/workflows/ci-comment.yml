@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo A comment on PR $NUMBER
+          echo A comment on PR ${{ github.event.issue }}
         env:
           NUMBER: ${{ github.event.issue.number }}
 
@@ -23,6 +23,7 @@ jobs:
     steps:
       - run: |
           echo A comment on PR $NUMBER w check for name
+          echo ${{ github.actor.login}}
         env:
           NUMBER: ${{ github.event.issue.number }}
 
