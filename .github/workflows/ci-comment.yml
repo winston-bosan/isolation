@@ -1,0 +1,44 @@
+name: CI Comment Triggered Integration Test with Publishing
+
+on:
+  issue_comment:
+    types: [ created ]
+
+permissions:
+  contents: read
+
+jobs:
+  PR comment:
+    if: ${{ github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo A comment on PR $NUMBER
+        env:
+          NUMBER: ${{ github.event.issue.number }}
+
+  PR comment w check for name:
+    if: ${{ github.event.issue.pull_request && (github.actor.login == 'hypotrochoid' || github.actor.login == 'winston-bosan') }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo A comment on PR $NUMBER w check for name
+        env:
+          NUMBER: ${{ github.event.issue.number }}
+
+  PR comment w check for name and content:
+    if: ${{ github.event.issue.pull_request && (github.actor.login == 'hypotrochoid' || github.actor.login == 'winston-bosan') && contains(github.event.comment.body, 'integrationNOW') }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo A comment on PR $NUMBER w check for name and content
+        env:
+          NUMBER: ${{ github.event.issue.number }}
+
+  admin_pr_commented:
+    if: github.event.issue.pull_request && (github.actor.login == 'hypotrochoid' || github.actor.login == 'winston-bosan') && contains(github.event.comment.body, 'integrationNOW')  # if pr, if micah, if integrationNOW, else exit 1
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo yep it is micah or Simon
+          echo the github event looks like this... ${{ github.event.issue.pull_request }}
