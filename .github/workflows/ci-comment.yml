@@ -13,26 +13,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo A comment on PR ${{ toJSON(github.event.issue) }}
-          echo ${{ toJSON(github.actor.login)}}
+          echo A comment on PR ${{ toJSON(github.event) }}
+          echo ${{ github.event.issue.user.login}}
         env:
-          NUMBER: ${{ github.event.issue.number }}
+          PR_NUM: ${{ github.event.issue.number }}
 
   PRC_w_check_name:
-    if: ${{ github.event.issue.pull_request && (github.actor.login == 'hypotrochoid' || github.actor.login == 'winston-bosan') }}
+    if: ${{ github.event.issue.pull_request && (github.event.issue.user.login == 'hypotrochoid' || github.event.issue.user.login == 'winston-bosan') }}
     runs-on: ubuntu-latest
     steps:
       - run: |
           echo A comment on PR $NUMBER w check for name
-          echo ${{ github.actor.login}}
+          echo ${{ github.event.issue.user.login }}
         env:
           NUMBER: ${{ github.event.issue.number }}
 
   PRc_check_name_and_content:
-    if: ${{ github.event.issue.pull_request && (github.actor.login == 'hypotrochoid' || github.actor.login == 'winston-bosan') && contains(github.event.comment.body, 'integrationNOW') }}
+    if: ${{ github.event.issue.pull_request && (github.event.issue.user.login == 'hypotrochoid' || github.event.issue.user.login == 'winston-bosan') && contains(github.event.comment.body, 'integrationNOW') }}
     runs-on: ubuntu-latest
     steps:
       - run: |
           echo A comment on PR $NUMBER w check for name and content
+          echo "I am PR#:${{ github.event.issue.number }}"
         env:
           NUMBER: ${{ github.event.issue.number }}
