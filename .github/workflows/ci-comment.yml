@@ -48,8 +48,12 @@ jobs:
   extract_sha_pr_name_to_output:
     needs: [PRc_check_name_and_content]
     runs-on: ubuntu-latest
+    outputs:
+      branchName: ${{ steps.api.outputs.branchName }}
+      headSHA: ${{ steps.api.outputs.headSHA }}
     steps:
-      - run: |
+      - id: api
+        run: |
           tempHeadRefName=$(curl -L \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"\
@@ -64,3 +68,15 @@ jobs:
           
           echo $tempHeadRefName
           echo $tempHeadRefSHA
+          
+          echo "branchName=$tempHeadRefName" >> "$GITHUB_OUTPUT"
+          echo "headSHA=$tempHeadRefSHA" >> "$GITHUB_OUTPUT"
+
+  printOut:
+    runs-on: ubuntu-latest
+    needs: extract_sha_pr_name_to_output
+    steps:
+      - env:
+          OUTPUT1: ${{needs.extract_sha_pr_name_to_output.outputs.branchName}}
+          OUTPUT2: ${{needs.extract_sha_pr_name_to_output.outputs.headSHA}}
+        run: echo "$OUTPUT1 $OUTPUT2"
