@@ -38,6 +38,7 @@ jobs:
           echo "running on branch ${GITHUB_REF##*/}"
           GIT_BRANCH=${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}
           echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
+          echo "$GIT_BRANCH"
         env:
           NUMBER: ${{ github.event.issue.number }}
           GIT_BRANCH: ${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}
