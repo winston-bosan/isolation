@@ -2,17 +2,6 @@ name: Manual Dispatch Based CI Comment Triggered Integration Test with Publishin
 
 on:
   workflow_dispatch:
-    inputs:
-      issueNumber:
-        description: 'Ditto'
-        required: false
-        default: ''
-        type: string
-      SHA:
-        description: 'SHA of the commit you want to run integration on (defaults to which branch u call it from)'
-        required: false
-        default: ''
-        type: string
 
 permissions:
   contents: read
