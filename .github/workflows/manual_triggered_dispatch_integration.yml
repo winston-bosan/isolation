@@ -8,11 +8,6 @@ on:
         required: false
         default: ''
         type: string
-      SHA:
-        description: 'SHA of the commit you want to run integration on (defaults to which branch u call it from)'
-        required: false
-        default: ''
-        type: string
 
 permissions:
   contents: read
@@ -31,7 +26,7 @@ jobs:
           echo "I am PR#:${{ github.event.issue.number }}"
           echo "running on branch ${GITHUB_REF##*/}"
           GIT_BRANCH=${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}
-          echo "git_branch=$GIT_BRANCH" >> $GITHUB_ENV
+          echo "git_branch=$GIT_BRANCH" >> "$GITHUB_OUTPUT"
           echo "$GIT_BRANCH"
 
   printOut:
