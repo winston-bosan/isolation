@@ -22,6 +22,7 @@ jobs:
         run: |
           echo ${{ github.event }}
           echo ${{ github.ref }}
+          echo "THe SHA is ${{ github.sha }}"
           echo A comment on PR $NUMBER w check for name and content
           echo "I am PR#:${{ github.event.issue.number }}"
           echo "running on branch ${GITHUB_REF##*/}"
