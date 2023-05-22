@@ -1,4 +1,4 @@
-name: Dispatch Based CI Comment Triggered Integration Test with Publishing
+name: Manual Dispatch Based CI Comment Triggered Integration Test with Publishing
 
 on:
   workflow_dispatch:
