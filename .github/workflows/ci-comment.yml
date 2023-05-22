@@ -9,7 +9,7 @@ on:
         default: ''
         type: string
       logLevel:
-        description: 'SHA of the commit you want to run integration on (defaults to which branch u call it from)'
+        description: 'SHA of the commit you want to run integration on (defaults to which branch u call it fro m)'
         required: false
         default: ''
         type: string
